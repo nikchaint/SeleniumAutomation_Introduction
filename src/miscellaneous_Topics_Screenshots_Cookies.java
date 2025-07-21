@@ -58,15 +58,17 @@ public class miscellaneous_Topics_Screenshots_Cookies {
 
 ////Taking Screenshots
 		driver.get("https://google.com");
-		 //Casts the WebDriver to TakesScreenshot interface.
-		 //Takes a screenshot of the current browser window.
-		 //Saves it as a temporary File object (src).
-		File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-		//Uses Apache Commons IO’s FileUtils to copy the screenshot from temp (src)
-		//To your local system path (screenshot.png).
-		FileUtils.copyFile(src, new File("E:\\SELENIUM WEBDRIVER TUTORIALS\\sceenshots\\screenshot.png"));
-		
-		
+		//1. Generate a timestamp (to avoid overwriting old screenshots)
+        	String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());	
+        	// 2. Capture the screenshot and store it as a temporary File object
+        	File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        	// 3. Define destination file path (change this path as per your need)
+        	File dest = new File("E:\\SELENIUM WEBDRIVER TUTORIALS\\screenshots\\google_HomePage" + "_" + timestamp + ".png");
+		// 4. Copy screenshot from temp location to the destination
+        	FileUtils.copyFile(src, dest);
+		//  5. Print confirmation message
+        	System.out.println("✅ Screenshot saved at: " + dest.getAbsolutePath());
+				
 //Handling Broken Links
 		//Soft Assertions
 		SoftAssert a = new SoftAssert();
