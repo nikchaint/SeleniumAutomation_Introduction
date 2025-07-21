@@ -74,13 +74,20 @@ public class miscellaneous_Topics_Screenshots_Cookies {
 		SoftAssert a = new SoftAssert();
 		
 		driver.get("https://rahulshettyacademy.com/AutomationPractice/");
+		//Finds all anchor (<a>) tags inside elements having class .gf-li. 
+		//This collects all footer links (as WebElements) into a list.
 		List<WebElement> links = driver.findElements(By.cssSelector(".gf-li a"));
+		//Loop Through Each Link and Check for Broken Links
 		for (WebElement link : links) {
 			String url = link.getDomAttribute("href");
 			System.out.println(url);
+
+			//Opens an HTTP connection to the URL.
 			HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
+			// Uses HEAD request (only fetches headers, not the full page → faster).
 			conn.setRequestMethod("HEAD");
 			conn.connect();
+			//Gets the HTTP response status code (e.g., 200 = OK, 404 = Not Found, 500 = Server Error).
 			int statusCode = conn.getResponseCode();
 			//using soft assertions
 			a.assertTrue(statusCode < 400, "This link " + url + " is Broken with statuscode" + statusCode);
