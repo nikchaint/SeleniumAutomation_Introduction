@@ -23,6 +23,7 @@ public class miscellaneous_Topics_Screenshots_Cookies {
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
+		
 //Handling HTTPS Certification
 		// Create ChromeOptions object
 		ChromeOptions obj = new ChromeOptions();
@@ -34,7 +35,7 @@ public class miscellaneous_Topics_Screenshots_Cookies {
 		driver.get("https://expired.badssl.com/");
 		System.out.println(driver.getTitle());
 
-////Handling Proxy Settings
+//Handling Proxy Settings
 		// Create ChromeOptions object
 		ChromeOptions obj1 = new ChromeOptions();
 		// Allow insecure/expired certs
@@ -46,17 +47,17 @@ public class miscellaneous_Topics_Screenshots_Cookies {
         //options.setProxy(proxy);
 		WebDriver driver1 = new ChromeDriver(obj1);
 		
-////Handling the extensions
+//Handling the extensions
 		// Create ChromeOptions object
 		ChromeOptions obj2 = new ChromeOptions();
 		obj2.addEncodedExtensions("path_to_exntension_file");
 		
-////Deleting Cookies
+//Deleting Cookies
 		driver.manage().deleteAllCookies();
 		driver.manage().deleteCookieNamed("sessionKey");
 		driver.manage().getCookies();
 
-////Taking Screenshots
+//Taking Screenshots
 		driver.get("https://google.com");
 		//1. Generate a timestamp (to avoid overwriting old screenshots)
         	String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());	
@@ -67,8 +68,22 @@ public class miscellaneous_Topics_Screenshots_Cookies {
 		// 4. Copy screenshot from temp location to the destination
         	FileUtils.copyFile(src, dest);
 		//  5. Print confirmation message
-        	System.out.println("✅ Screenshot saved at: " + dest.getAbsolutePath());
-				
+        	System.out.println("Screenshot saved at: " + dest.getAbsolutePath());
+		
+//Take Screenshot of a Particular Element in Selenium
+		driver.get("https://rahulshettyacademy.com/AutomationPractice/");
+        	driver.manage().window().maximize();
+
+        	// 1. Locate the specific element (e.g., logo)
+        	WebElement logo = driver.findElement(By.cssSelector(".logoClass"));
+        	// 2. Take screenshot of only that element
+        	File src = logo.getScreenshotAs(OutputType.FILE);
+		// Save it to your desired location
+        	File dest = new File("E:\\SELENIUM WEBDRIVER TUTORIALS\\screenshots\\logo.png");
+        	FileUtils.copyFile(src, dest);
+		System.out.println("Element screenshot saved at: " + dest.getAbsolutePath());
+		driver.close();
+		
 //Handling Broken Links
 		//Soft Assertions
 		SoftAssert a = new SoftAssert();
@@ -94,5 +109,4 @@ public class miscellaneous_Topics_Screenshots_Cookies {
 		}
 		a.assertAll();
 	}
-
 }
